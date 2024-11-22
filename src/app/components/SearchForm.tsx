@@ -11,7 +11,7 @@ function SearchForm({
   setSearchEngine,
 }: {
   searchEngine: string;
-  setSearchEngine: any;
+  setSearchEngine: React.Dispatch<React.SetStateAction<string>>;
 }) {
   const [query, setQuery] = useState<string>("");
   const [fileType, setFileType] = useState<string>("");
