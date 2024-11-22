@@ -30,17 +30,19 @@ function SearchForm({
 
   return (
     <form className={styleConstants.form.default} onSubmit={handleSearch}>
-      <div className="flex flex-row">
-        <FileTypeDropdown setFileType={setFileType} setResType={setResType} />
-        <EngineDropdown setEngine={setSearchEngine} />
+      <div className="flex flex-col md:flex-row">
+        <div className="flex">
+          <FileTypeDropdown setFileType={setFileType} setResType={setResType} />
+          <EngineDropdown setEngine={setSearchEngine} />
+        </div>
+        <input
+          type="text"
+          value={query}
+          onChange={handleInputOnChange}
+          placeholder="Search anything"
+          className={styleConstants.input.default}
+        />
       </div>
-      <input
-        type="text"
-        value={query}
-        onChange={handleInputOnChange}
-        placeholder="Search anything"
-        className={styleConstants.input.default}
-      />
       <button className={styleConstants.button.default} type="submit">
         Search
       </button>
