@@ -1,8 +1,78 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Web Finder
+
+**Get direct download links for almost anything.**
+
+Web Finder is a specialized search interface that helps you find direct download links for various file types across the web. Instead of sifting through countless search results, Web Finder uses optimized search queries to help you discover direct file links efficiently.
+
+## Features
+
+### 🔍 Smart Search Queries
+
+- Automatically builds optimized search queries with file type filters
+- Excludes unwanted URLs (jsp, php, html, etc.)
+- Includes `intitle:index.of` for better directory indexing results
+- Filters out known spam and low-quality sites
+
+### 📁 File Type Categories
+
+- **TV/Movies** - mkv, mp4, avi, mov, mpg, wmv, divx, mpeg
+- **Books** - MOBI, CBZ, CBR, PDF, EPUB
+- **Music** - mp3, wav, flac, ogg
+- **Software/Games** - exe, iso, dmg, tar, rar, zip
+- **Images** - jpg, png, bmp, gif
+- **Other** - Generic search without file type restrictions
+
+### 🌐 Multiple Search Engines
+
+- **Google** - The most comprehensive search results
+- **Startpage** - Privacy-focused Google results
+- **Searx** - Open-source metasearch engine
+- **FilePursuit** - Specialized file search engine
+
+### 🎨 Modern Interface
+
+- Clean, responsive design built with Tailwind CSS
+- Mobile-friendly interface
+- Dynamic search engine logos
+- Intuitive dropdowns for easy selection
+
+## Technology Stack
+
+- **Framework**: Next.js 15 with App Router
+- **Frontend**: React 19, TypeScript
+- **Styling**: Tailwind CSS with custom animations
+- **Icons**: Lucide React
+- **Font**: Fira Code Variable
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js 18+
+- npm, yarn, pnpm, or bun
+
+### Installation
+
+1. Clone the repository:
+
+```bash
+git clone <repository-url>
+cd web-finder
+```
+
+2. Install dependencies:
+
+```bash
+npm install
+# or
+yarn install
+# or
+pnpm install
+# or
+bun install
+```
+
+3. Run the development server:
 
 ```bash
 npm run dev
@@ -14,23 +84,84 @@ pnpm dev
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+4. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## How It Works
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Search Query Building
 
-## Learn More
+Web Finder constructs intelligent search queries by:
 
-To learn more about Next.js, take a look at the following resources:
+1. **Base Query**: Your search term
+2. **File Type Filter**: Adds file extension filters based on selected category
+3. **Exclusions**: Removes unwanted file types and sites
+4. **Directory Indexing**: Includes `intitle:index.of` for better results
+5. **Spam Filtering**: Excludes known low-quality sites
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Example query for searching "Ubuntu" in Software category:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
+Ubuntu +(exe|iso|dmg|tar|rar|zip) -inurl:(jsp|pl|php|html|aspx|htm|cf|shtml) intitle:index.of -inurl:(listen77|mp3raid|mp3toss|mp3drug|index_of|index-of|wallywashis|downloadmana)
+```
 
-## Deploy on Vercel
+### Engine-Specific URLs
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Each search engine has its own URL structure:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Google**: `https://www.google.com/search?q=...`
+- **Startpage**: `https://www.startpage.com/do/dsearch?query=...`
+- **Searx**: `https://searx.me/?q=...`
+- **FilePursuit**: `https://filepursuit.com/search/.../type/...`
+
+## Project Structure
+
+```
+src/
+├── app/
+│   ├── components/
+│   │   ├── EngineDropdown.tsx    # Search engine selector
+│   │   ├── FileTypeDropdown.tsx  # File type category selector
+│   │   ├── Header.tsx           # App header with logo
+│   │   ├── SearchForm.tsx       # Main search interface
+│   │   ├── styleConstants.ts    # Shared styling constants
+│   │   └── utls.ts             # Engine logos (base64)
+│   ├── fonts/                  # Fira Code font files
+│   ├── globals.css             # Global styles
+│   ├── layout.tsx              # Root layout
+│   ├── page.tsx                # Home page
+│   └── utils.js                # Search logic utilities
+└── lib/
+    └── utils.ts                # Utility functions
+```
+
+## Development
+
+### Building for Production
+
+```bash
+npm run build
+npm run start
+```
+
+### Linting
+
+```bash
+npm run lint
+```
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feature-name`
+3. Make your changes
+4. Commit: `git commit -am 'Add some feature'`
+5. Push: `git push origin feature-name`
+6. Submit a pull request
+
+## License
+
+This project is open source and available under the [MIT License](LICENSE).
+
+## Disclaimer
+
+Web Finder is a search tool that helps users find publicly available files on the internet. Users are responsible for ensuring they have the right to download any files they find. Respect copyright laws and intellectual property rights.
